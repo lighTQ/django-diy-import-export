@@ -6,12 +6,6 @@
 @contact:byamian@gmail.com
 @version: 1.0.0
 @license: Apache Licence
-@file: excel_view.py
-@time: 11/16/24 PM7:04
+@file: __init__.py.py
+@time: 11/17/24 PM5:21
 """
-import xlwt
-from django.http import HttpResponse
-
-from goods.models import Books
-
-
