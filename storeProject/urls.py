@@ -19,13 +19,13 @@ from django.urls import path, include
 
 from rest_framework.routers import SimpleRouter
 from goods import views
+
 router = SimpleRouter()
-router.register('book',views.BookView)
+router.register('book', views.BookView)
 
 print(router.urls)
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('api.urls'))
-]
+urlpatterns = [path('admin/', admin.site.urls),
+               path('', include('api.urls')),
+               ]
 
 urlpatterns += router.urls
