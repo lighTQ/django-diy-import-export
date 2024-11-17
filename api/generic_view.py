@@ -16,6 +16,7 @@ from django.contrib.admin.utils import lookup_field
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView, ListCreateAPIView
 
+from api.models import Person, PersonSerializer
 from api.serializer import PublishSerializer, PublishModelSerializer,BooksModelSerializer
 from goods.models import Publish,Books
 
@@ -147,3 +148,19 @@ class Book2DetailView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'name'
 
 
+# 第四层封装，使用modelViewSet 做
+from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet,GenericViewSet,ViewSet
+
+class BookView3(ModelViewSet):
+    queryset = Books.objects.all()
+    serializer_class = BooksModelSerializer
+    lookup_field = 'name'
+
+
+class IndexView(ViewSet):
+    objects_all = Person.objects.all()
+    serializer = PersonSerializer(objects_all,many=True)
+    lookup_field = 'name'
+    # 自定义方法然后再url中进行绑定
+    def lhw(self,request,name,*args,**kwargs):
+        return Response({"msg":"hello world, hello :"+name})

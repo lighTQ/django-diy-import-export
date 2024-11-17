@@ -10,10 +10,22 @@
 @time: 11/15/24 PM7:04
 """
 
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import SimpleRouter
+
 from . import views,generic_view
 
+
+# 自动生成的路由必须继承ViewSetMixin，才能自动生成
+
+# router = SimpleRouter()
+# router.register(r'books', generic_view.BookView3)
+
 urlpatterns = [
+
+    # 自动生成的路由可以设置路径
+    # path('api/v1',include(router.urls)),
+
     path('goods/', views.goods_list),
     path('goods/<int:id>', views.goods_detail),
     # path('publish/', views.PublishViewSet.as_view({'get': 'list', 'post': 'create'})),
@@ -39,4 +51,7 @@ urlpatterns = [
     path('gg_books/',generic_view.BookView2.as_view()),
     path('gg_books/<str:name>',generic_view.Book2DetailView.as_view()),
 
+    path('ggg_books/',generic_view.BookView3.as_view({'get':'list','post':'create'})),
+    path('ggg_books/<str:name>',generic_view.BookView3.as_view({'get':'retrieve','put':'update','delete':'destroy'})),
+    path('index_home/<str:name>',generic_view.IndexView.as_view({'get':'lhw'}))
 ]
