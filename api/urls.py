@@ -11,7 +11,7 @@
 """
 
 from django.urls import path
-from . import views
+from . import views,generic_view
 
 urlpatterns = [
     path('goods/', views.goods_list),
@@ -29,4 +29,11 @@ urlpatterns = [
     path('import/',views.ImportExcelView.as_view()),
     path('import_file/',views.ImportFileView.as_view()),
     path('export_file/',views.ExportFileView.as_view()),
+
+    path('g_publish/',generic_view.PublishGenericAPIView.as_view()),
+    path('g_publish/<str:name>',generic_view.PublishDetailGenericAPIView.as_view()),
+
+    path('g_books/',generic_view.BookGenericAPIView.as_view()),
+    path('g_books/<str:name>',generic_view.BookDetailGenericAPIView.as_view()),
+
 ]

@@ -27,11 +27,12 @@ class GoodsSerializer(serializers.ModelSerializer):
 #         fields = '__all__'
 
 
-# class BooksSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Books
-#         fields = '__all__'
-#
+
+class BooksModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Books
+        fields = '__all__'
+
 
 class BooksSerializer(serializers.Serializer):
     # 字段跟原名称绑定
@@ -91,3 +92,4 @@ class PublishModelSerializer(serializers.ModelSerializer):
         model = Publish
         fields = '__all__'
         # fields=['id','name']  # 部分字段序列化
+

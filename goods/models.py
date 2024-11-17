@@ -20,7 +20,8 @@ class Books(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32)
     price = models.IntegerField()
-    publish = models.ForeignKey(to='Publish', on_delete=models.SET(func))
+    # publish = models.ForeignKey(to='Publish', on_delete=models.SET(func))
+    publish = models.ForeignKey(to='Publish', on_delete=models.SET_NULL, null=True)
 
     def get_book_name(self):
         return "经典名著：《"+self.name+"》"

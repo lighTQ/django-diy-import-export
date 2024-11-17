@@ -158,15 +158,16 @@ class BookDetailAPIView(APIView):
 
 
 class PublishView(APIView):
+    queryset = Publish.objects.all()
+    serializer_class = PublishSerializer
     def get(self, request, *args, **kwargs):
-        publish_list = Publish.objects.all()
-        # ser = PublishSerializer(publish_list, many=True)
-        ser = PublishModelSerializer(publish_list, many=True)
+        # ser = self.serializer_class(self.self.queryset, many=True)
+        ser = PublishModelSerializer(self.queryset, many=True)
         print(ser.data)
         return Response(ser.data)
 
     def post(self, request, *args, **kwargs):
-        ser = PublishSerializer(data=request.data)
+        ser = self.serializer_class(data=request.data)
         if ser.is_valid():
             ser.save()
             return Response(ser.data)
@@ -325,3 +326,5 @@ class ExportFileView(APIView):
                 return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
