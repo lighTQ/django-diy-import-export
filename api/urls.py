@@ -36,4 +36,7 @@ urlpatterns = [
     path('g_books/',generic_view.BookGenericAPIView.as_view()),
     path('g_books/<str:name>',generic_view.BookDetailGenericAPIView.as_view()),
 
+    path('gg_books/',generic_view.BookView2.as_view()),
+    path('gg_books/<str:name>',generic_view.Book2DetailView.as_view()),
+
 ]
