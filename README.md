@@ -8,20 +8,25 @@
 安装所需的包：
 
 sh
+`
 pip install djangorestframework
 pip install drf-yasg
+`
 在settings.py中配置INSTALLED_APPS：
 
 python
+`
 INSTALLED_APPS = [
     ...
     'rest_framework',
     'drf_yasg',
     ...
 ]
+`
 在urls.py中配置Swagger和Schema视图：
 
 python
+`
 from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -46,6 +51,7 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     ...
 ]
+`
 确保你的模板中包含Swagger UI： 在你的HTML模板中，添加以下代码来加载Swagger UI：
 
 html
