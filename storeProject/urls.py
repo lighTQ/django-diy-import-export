@@ -16,16 +16,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.documentation import include_docs_urls
 
 from rest_framework.routers import SimpleRouter
 from goods import views
 
-router = SimpleRouter()
-router.register('book', views.BookView)
+# router = SimpleRouter()
+# router.register('book', views.BookView)
+# print(router.urls)
 
-print(router.urls)
+
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework import permissions
+schema_view = get_schema_view( openapi.Info( title="API Documentation",
+                                default_version='v1',
+                                description="API documentation for my project",
+                                terms_of_service="https://www.google.com/",
+                                contact=openapi.Contact(email="contact@myproject.com"),
+                                license=openapi.License(name="Apache License 2.0"), ),
+                               public=True,
+                                permission_classes=[permissions.AllowAny,], )
+
+
 urlpatterns = [path('admin/', admin.site.urls),
-               path('', include('api.urls')),
-               ]
+               path('api/v1/', include('api.urls')),
+               path('docs/', include_docs_urls(title='我的coreapi 接口文档')),
+               path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+               path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),                ]
+# urlpatterns += router.urls
 
-urlpatterns += router.urls
+print(urlpatterns)

@@ -27,3 +27,17 @@ class PersonSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Person.objects.create(**validated_data)
+
+class CONFIG_INFO(models.Model):
+    id = models.AutoField(primary_key=True)
+    config_category=models.CharField(max_length=100)
+    config_name = models.CharField(max_length=100)
+    config_value = models.CharField(max_length=100)
+    config_remark = models.CharField(max_length=100)
+    create_date = models.DateTimeField(auto_created=True)
+    last_update = models.DateTimeField(auto_now=True)
+
+class ConfigModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CONFIG_INFO
+        fields ='__all__'
