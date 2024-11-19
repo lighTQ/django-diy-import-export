@@ -33,6 +33,9 @@ class MyModelViewSet(ModelViewSet):
         res = {'result':response.data, 'msg':'查询成功', 'code':status.HTTP_200_OK}
         return Response(res)
 
+    # 自己扩展的methods:派生
+    def login(self,request):
+
 class ConfigModelView(MyModelViewSet):
     queryset = CONFIG_INFO.objects.all()
     serializer_class = ConfigModelSerializer
