@@ -34,7 +34,10 @@ class MyModelViewSet(ModelViewSet):
         return Response(res)
 
     # 自己扩展的methods:派生
+    @action(detail=False, methods=['get'], url_path='method_name_in_url_path, default=method_name')
     def login(self,request):
+
+        return Response('登陆成功')
 
 class ConfigModelView(MyModelViewSet):
     queryset = CONFIG_INFO.objects.all()
