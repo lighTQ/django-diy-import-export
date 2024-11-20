@@ -12,18 +12,19 @@
 import uuid
 
 import pandas as pd
-from django.core.serializers import serialize
 from django.db.models import Max
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
-from pandas.io.formats.style import buffering_args
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from datetime import datetime
-
+from rest_framework.renderers import TemplateHTMLRenderer
+from api.CustomPagination import CustomPageNumberPagination
 from api.models import CONFIG_INFO, ConfigModelSerializer
+from django.shortcuts import render
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
 
 class MyModelViewSet(ModelViewSet):
 
@@ -48,11 +49,26 @@ class MyModelViewSet(ModelViewSet):
 class ConfigModelView(MyModelViewSet):
     queryset = CONFIG_INFO.objects.all()
     serializer_class = ConfigModelSerializer
+    pagination_class = CustomPageNumberPagination
 
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = "__all__"
     # ordering_fields = "__all__"
     ordering_fields = ['id','config_name']
+    renderer_classes = (TemplateHTMLRenderer,)
+    template_name = 'config_info.html'
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        paginator = self.pagination_class()
+        # 确保传递了request参数
+        page = paginator.paginate_queryset(queryset, request)
+        if page is not None:
+            serializer = self.serializer_class(page, many=True)
+            print(serializer.data)
+            return paginator.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(queryset, many=True)
+        return Response({"records": serializer.data}, status=status.HTTP_200_OK)
 
     @action(detail=False, methods=['get'])
     def export(self, request, *args, **kwargs):

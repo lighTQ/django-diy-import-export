@@ -6,6 +6,6 @@
 @contact:byamian@gmail.com
 @version: 1.0.0
 @license: Apache Licence
-@file: __init__.py
-@time: 11/15/24 PM7:01
+@file: _private.py
+@time: 11/20/24 PM8:56
 """
