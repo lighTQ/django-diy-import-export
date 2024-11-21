@@ -20,7 +20,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from datetime import datetime
-from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.renderers import TemplateHTMLRenderer, HTMLFormRenderer
 from api.CustomPagination import CustomPageNumberPagination, MyLimitPagination
 from api.models import CONFIG_INFO, ConfigModelSerializer
 from django.shortcuts import render
