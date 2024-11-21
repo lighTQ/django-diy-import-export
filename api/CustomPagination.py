@@ -10,8 +10,22 @@
 @time: 11/20/24 PM10:51
 """
 
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import PageNumberPagination,LimitOffsetPagination
 from rest_framework.response import Response
+
+class MyLimitPagination(LimitOffsetPagination):
+    default_limit = 10
+    limit_query_param = 'limit'
+    offset_query_param = 'offset'
+    max_limit = 100
+
+    def get_paginated_response(self, data):
+        return Response({
+            'count': self.count,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+            'records': data
+        })
 
 
 class CustomPageNumberPagination(PageNumberPagination):

@@ -21,7 +21,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from datetime import datetime
 from rest_framework.renderers import TemplateHTMLRenderer
-from api.CustomPagination import CustomPageNumberPagination
+from api.CustomPagination import CustomPageNumberPagination, MyLimitPagination
 from api.models import CONFIG_INFO, ConfigModelSerializer
 from django.shortcuts import render
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
@@ -49,7 +49,7 @@ class MyModelViewSet(ModelViewSet):
 class ConfigModelView(MyModelViewSet):
     queryset = CONFIG_INFO.objects.all()
     serializer_class = ConfigModelSerializer
-    pagination_class = CustomPageNumberPagination
+    pagination_class = MyLimitPagination
 
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = "__all__"

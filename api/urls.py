@@ -56,3 +56,6 @@ urlpatterns = [
 ]
 
 print(router.urls)
+from  api.runapscheduler import start_scheduler
+
+start_scheduler()
