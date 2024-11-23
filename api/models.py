@@ -41,3 +41,4 @@ class ConfigModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = CONFIG_INFO
         fields ='__all__'
+        extra_kwargs = {'create_date': {'required': False}}

@@ -43,3 +43,38 @@ class CustomPageNumberPagination(PageNumberPagination):
             "previous": self.get_previous_link(),
             "records": data
         })
+
+class JavaPageNumberPagination(PageNumberPagination):
+    page_size = 10
+    page_query_param = 'page_size'
+    max_page_size = 100
+
+    def get_paginated_response(self, data):
+        return Response({
+            "pageVO":
+                {
+                    "totalRows":self.page.paginator.count,
+                    "curPage":self.page.number,
+                    "pageSize":self.page.paginator.per_page,
+                    "resultMode":0,
+                    "startIndex":self.page.start_index(),
+                    "endIndex":self.page.end_index(),
+                    "orderBy":None,
+                    "filterStr":None,
+                    "totalPages":self.page.paginator.num_pages,
+                }
+            ,
+            "result":data
+        })
+
+
+
+
+
+
+
+
+
+
+
+

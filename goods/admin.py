@@ -7,5 +7,3 @@ from . import models
 admin.site.register(models.Goods)
 admin.site.register(models.Publish)
 admin.site.register(models.Books)
-# admin.site.register(api.models.Person)
-# admin.site.register(api.models.CONFIG_INFO)
