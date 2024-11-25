@@ -62,6 +62,8 @@ class ConfigModelView(MyModelViewSet):
     # template_name = 'config_info.html'
 
     def list(self, request, *args, **kwargs):
+        self.renderer_classes = (TemplateHTMLRenderer,)
+        self.template_name = 'config_info.html'
         queryset = self.filter_queryset(self.get_queryset())
         paginator = self.pagination_class()
         # 确保传递了request参数
