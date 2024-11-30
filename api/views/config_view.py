@@ -10,49 +10,24 @@
 @time: 11/18/24 PM8:38
 """
 import json
-import uuid
-from pickle import FALSE
 
 import pandas as pd
-from django.core.paginator import Paginator
 from django.db.models import Max
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.viewsets import ModelViewSet
 from datetime import datetime
-from rest_framework.renderers import TemplateHTMLRenderer, HTMLFormRenderer
-from api.CustomPagination import CustomPageNumberPagination, MyLimitPagination,JavaPageNumberPagination
-from api.models import CONFIG_INFO, ConfigModelSerializer
-from django.shortcuts import render
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_422_UNPROCESSABLE_ENTITY
+from rest_framework.renderers import TemplateHTMLRenderer
+from api.models.models import CONFIG_INFO, ConfigModelSerializer
+from api.views.basic_view import BasicView
 
-class MyModelViewSet(ModelViewSet):
 
-    # 重写某些方法
-    def list(self, request, *args, **kwargs):
-        print(self.action) #表示执行的是哪个方法
-        response = super(MyModelViewSet, self).list(request, *args, **kwargs)
-        res = {'result':response.data, 'msg':'查询成功', 'code':status.HTTP_200_OK}
-        return Response(res)
 
-    # 自己扩展的methods:派生
-    @action(detail=False, methods=['get'], url_path='method_name_in_url_path, default=method_name')
-    def login(self,request):
-        return Response('登陆成功')
-
-    @action(detail=True, methods=['get'])
-    def login2(self,request,*args,**kwargs):
-        # 获取生成pk路径的pk参数
-        print(**kwargs)
-        return Response('登陆成功')
-
-class ConfigModelView(MyModelViewSet):
+class ConfigModelView(BasicView):
     queryset = CONFIG_INFO.objects.all()
     serializer_class = ConfigModelSerializer
-    pagination_class = JavaPageNumberPagination
 
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = "__all__"
@@ -75,23 +50,6 @@ class ConfigModelView(MyModelViewSet):
         serializer = self.serializer_class(queryset, many=True)
         return Response({"records": serializer.data}, status=status.HTTP_200_OK)
 
-    "JavaStyle PageList Response "
-    @action(detail=False, methods=['post'], url_path='findPagedList/(?P<page_index>\d+)/(?P<page_size>\d+)')
-    def findPagedList(self, request, page_index, page_size,*args, **kwargs):
-        try:
-            self.filter_backends = (TemplateHTMLRenderer,)
-            self.template_name = 'config_info.html'
-            parmas = json.loads(request.body)
-            # queryset= self.get_queryset().filter(**parmas)
-            queryset = self.filter_queryset_with_params(self.get_queryset(), parmas)
-            paginator = Paginator(queryset,page_size)
-            page = paginator.page(page_index)
-            ser = self.get_serializer(page,many=True)
-            pagination = self.pagination_class()
-            pagination.page = page
-            return pagination.get_paginated_response(ser.data)
-        except Exception as e:
-            return Response({"msg":str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -118,15 +76,7 @@ class ConfigModelView(MyModelViewSet):
         except Exception as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
-    """
-    自定义过滤body参数
-    """
-    def filter_queryset_with_params(self,qs,params):
-        if params:
-            for key,value in params.items():
-                if value!="":
-                    qs = qs.filter(**{key:value})
-        return qs
+
 
     """
     use postmethod upload mulltifiles with other params

@@ -12,12 +12,11 @@
 1. 比API封装更高级一点 ，extends APIView
 
 """
-from django.contrib.admin.utils import lookup_field
 from rest_framework.response import Response
-from rest_framework.generics import GenericAPIView, ListCreateAPIView
+from rest_framework.generics import GenericAPIView
 
-from api.models import Person, PersonSerializer
-from api.serializer import PublishSerializer, PublishModelSerializer,BooksModelSerializer
+from api.models.models import Person, PersonSerializer
+from goods.serializer import PublishModelSerializer,BooksModelSerializer
 from goods.models import Publish,Books
 
 
@@ -134,9 +133,8 @@ class BookDetailGenericAPIView(GenericAPIView,RetrieveModelMixin,DestroyModelMix
 
 
 ## 第三层封装， 基于视图子类实现5个接口（9个）,实际中用哪个实现哪个， 在序列化类中实现局部钩子做校验
-from rest_framework.generics import (ListCreateAPIView,CreateAPIView,RetrieveAPIView,
-                                     DestroyAPIView,UpdateAPIView,ListCreateAPIView,
-                                     RetrieveUpdateAPIView,DestroyAPIView,RetrieveUpdateDestroyAPIView)
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 
 class BookView2(ListCreateAPIView):
     queryset = Books.objects.all()
@@ -149,7 +147,7 @@ class Book2DetailView(RetrieveUpdateDestroyAPIView):
 
 
 # 第四层封装，使用modelViewSet 做
-from rest_framework.viewsets import ModelViewSet,ReadOnlyModelViewSet,GenericViewSet,ViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 
 class BookView3(ModelViewSet):
     queryset = Books.objects.all()

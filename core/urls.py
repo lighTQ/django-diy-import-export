@@ -18,8 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 
-from rest_framework.routers import SimpleRouter
-from goods import views
+from api.views.homeView import HomePageView
 
 # router = SimpleRouter()
 # router.register('book', views.BookView)
@@ -39,7 +38,9 @@ schema_view = get_schema_view( openapi.Info( title="API Documentation",
                                 permission_classes=[permissions.AllowAny,], )
 
 
-urlpatterns = [path('admin/', admin.site.urls),
+urlpatterns = [
+               path('',HomePageView.as_view(),name='homePage') ,
+               path('admin/', admin.site.urls),
                path('api/v1/', include('api.urls'),name='api'),
                path('study/v1/',include('goods.urls'),name='study'),
                path('docs/', include_docs_urls(title='我的coreapi 接口文档')),
@@ -48,3 +49,4 @@ urlpatterns = [path('admin/', admin.site.urls),
 # urlpatterns += router.urls
 print('core \n')
 print(urlpatterns)
+

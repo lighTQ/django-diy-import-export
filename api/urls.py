@@ -12,7 +12,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from api import (config_view)
+from api.views import config_view
 
 # 自动生成的路由必须继承ViewSetMixin，才能自动生成
 router = SimpleRouter()
@@ -25,4 +25,8 @@ urlpatterns = [
 print('route: \n')
 print(router.urls)
 
-from api.runapscheduler import start_scheduler  # start_scheduler()
+#from api.runapscheduler import start_scheduler
+# start_scheduler()
+
+import webbrowser
+# webbrowser.open('http://127.0.0.1:8000')

@@ -10,6 +10,6 @@
 @time: 11/21/24 PM6:36
 """
 from django.contrib import admin
-from api.models import *
+from api.models.models import *
 admin.site.register(Person)
 admin.site.register(CONFIG_INFO)

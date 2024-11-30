@@ -1,29 +1,16 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.views import View
-from rest_framework.response import Response
-
 # Create your views here.
 
-from rest_framework.viewsets import ModelViewSet
-from api.serializer import PublishSerializer, BooksSerializer
-from goods.models import Books
+from goods.serializer import BooksSerializer
 
-from http.client import responses
-from xml.dom import ValidationErr
 import pandas as pd
-from django.http import HttpResponse, JsonResponse
-from rest_framework import status, viewsets
+from django.http import HttpResponse
+from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework.templatetags.rest_framework import add_query_param
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from rest_framework.request import Request
+from rest_framework.viewsets import ModelViewSet
 
-from api.forms import ImportFileForm
-from api.models import PersonSerializer, Person
-from api.serializer import GoodsSerializer, PublishSerializer, PublishModelSerializer
+from api.models.models import PersonSerializer, Person
+from goods.serializer import GoodsSerializer, PublishSerializer, PublishModelSerializer
 from goods.models import Goods, Publish, Books
 from rest_framework.views import View
 import xlwt
@@ -115,7 +102,7 @@ from rest_framework.response import Response
 #         return Response("APIView Response")
 
 
-from api.serializer import BooksSerializer
+from goods.serializer import BooksSerializer
 
 
 class BookAPIView(APIView):
@@ -226,7 +213,6 @@ class ExportExcelView(APIView):
         return response
 
 
-from django.shortcuts import render
 from openpyxl import load_workbook
 
 
