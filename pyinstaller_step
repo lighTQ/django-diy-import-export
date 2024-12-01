@@ -1,0 +1,62 @@
+refrence url：
+
+https://www.cnblogs.com/songhaixing/p/14472231.html
+
+https://blog.csdn.net/weixin_44147584/article/details/117356092
+
+https://blog.csdn.net/u012324798/article/details/106837646?spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-106837646-blog-117026558.235%5Ev43%5Epc_blog_bottom_relevance_base7&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-106837646-blog-117026558.235%5Ev43%5Epc_blog_bottom_relevance_base7&utm_relevant_index=23
+
+
+https://blog.csdn.net/weixin_41001497/article/details/135402446?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-135402446-blog-117356092.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.2&utm_relevant_index=4
+
+
+https://blog.csdn.net/weixin_41001497/article/details/135402446
+
+
+https://github.com/pyinstaller/pyinstaller/issues/7115
+
+
+https://blog.csdn.net/qq_40292262/article/details/117026558?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-5-117026558-blog-105921480.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.4&utm_relevant_index=8
+
+
+https://blog.csdn.net/weixin_37934258/article/details/130216656?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-130216656-blog-117356092.235^v43^pc_blog_bottom_relevance_base7&spm=1001.2101.3001.4242.1&utm_relevant_index=3
+
+ pyinstaller --clean --noconfirm --additional-hooks-dir extra-hooks manage.py
+
+
+
+
+
+question1: cannot understand coreschema:
+
+answer :pip install jinja2==2.10.1
+
+pyinstaller manage.spec --noconfirm
+
+
+question2:
+RuntimeError: Script runserver does not exist. [PYI-24159:ERROR] Failed to execute script 'manage' due to unhandled exception!
+
+answer:
+ ./manage runserver localhost:8888 --noreload
+
+3. templates not found
+
+https://blog.csdn.net/weixin_44147584/article/details/117356092
+
+
+a = Analysis(
+    ['manage.py'],
+    pathex=[r'/Users/qlight/PycharmProjects/storeProject'],
+    binaries=[],
+    datas=[('static_root','static'),('templates','templates')],
+    hiddenimports=[],
+    hookspath=[],
+    hooksconfig={},
+    runtime_hooks=[],
+    excludes=[],
+    noarchive=False,
+    optimize=0,
+)
+
+
