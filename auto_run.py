@@ -14,19 +14,20 @@ import os
 import sys
 import webbrowser
 import  psutil
+from core.settings import HOSTNAME,PORT
 
 BASE_PATH = os.path.abspath('')
 
 os.system('TASKKILL /F /IM manage.exe')
 
 def run_main():
-    sys.path.append("libs")
-    url="localhost:1627"
-    webbrowser.open_new_tab(url)
-    main = BASE_PATH+"/manage.exe runserver 1627 --noreload"
+    # sys.path.append("libs")
+    url=f"{HOSTNAME}:{PORT}"
+    main = BASE_PATH+f"/okApp runserver {HOSTNAME}:{PORT} --noreload"
     print('_____')
     print('server is running!!')
     print('_____')
     os.system(main)
+    webbrowser.open_new_tab(url)
 
 run_main()
