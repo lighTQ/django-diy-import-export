@@ -28,6 +28,4 @@ def run_main():
     print('server is running!!')
     print('_____')
     os.system(main)
-    webbrowser.open_new_tab(url)
-
 run_main()
