@@ -12,7 +12,7 @@
 
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from api.views import config_view
+from api.views import config_view,GeneralUtilView
 from core.settings import HOSTNAME,PORT
 # 自动生成的路由必须继承ViewSetMixin，才能自动生成
 router = SimpleRouter()
@@ -20,6 +20,7 @@ router.register('configInfo', config_view.ConfigModelView)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('getDropDown',GeneralUtilView.GeneralUtilViewSet.as_view({'get':'dropDown'}),name='getDropDown'),
 ]
 
 print('route: \n')

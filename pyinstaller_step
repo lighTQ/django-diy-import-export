@@ -35,6 +35,7 @@ https://blog.csdn.net/weixin_37934258/article/details/130216656?utm_medium=distr
 question1: cannot understand coreschema:
 
 answer :pip install jinja2==2.10.1
+pip install MarkupSafe==2.0.1
 
 pyinstaller manage.spec --noconfirm
 
@@ -45,8 +46,7 @@ RuntimeError: Script runserver does not exist. [PYI-24159:ERROR] Failed to execu
 answer:
  ./manage runserver localhost:8888 --noreload
 
-3. templates not found
-
+3. templates no
 https://blog.csdn.net/weixin_44147584/article/details/117356092
 
 
@@ -63,5 +63,50 @@ a = Analysis(
     noarchive=False,
     optimize=0,
 )
+step1: set static file dir
+
+core settings:
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
+
+STATIC_URL='/static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'static_root') # 静态文件要收集到的目录
+STATICFILES_DIRS=[
+os.path.join(BASE_DIR,'yourapp/static'       #增加自己的app静态收集
+]
+step2:
+url 设置【最外层】
+from core import settings
+if settings.DEBUG:
+    urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+
+
+step3
+# collect static files
+
+python manage collectstatic
+
+step3.1 ico transform
+
+pip install pillow
+
+jpg_img = Image.open('xmage.jpg')
+jpg_img.size
+(4000, 3000)
+jpg_img.save('log.ico')
+ls
+
+
+step 4. gen .spec
+
+pyi-makespec  -F -n echoApp  --add-data "static_root:static" --add-data "templates:templates" manage.py
+
+step5. pyinstaller
+
+
+ppyinstaller --noconfirm --clean echoApp.spec
+
+
+step6:run
 
 
