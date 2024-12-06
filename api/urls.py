@@ -12,17 +12,18 @@
 
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from api.views import config_view,GeneralUtilView
+from api.views import config_view,general_util_view ,file_upload_view
 from core.settings import HOSTNAME,PORT
 # 自动生成的路由必须继承ViewSetMixin，才能自动生成
 router = SimpleRouter()
 router.register('configInfo', config_view.ConfigModelView)
 
-urlpatterns = [
-    path('', include(router.urls)),
-    path('getDropDown',GeneralUtilView.GeneralUtilViewSet.as_view({'get':'dropDown'}),name='getDropDown'),
-]
 
+urlpatterns = [
+    path('getDropDown',general_util_view.GeneralUtilViewSet.as_view({'get':'dropDown'}),name='getDropDown'),
+    path('uploadPics', file_upload_view.FileUploadView.as_view({'post': 'uploadPics'}), name='uploadPics'),
+    path('', include(router.urls)),
+]
 print('route: \n')
 print(router.urls)
 

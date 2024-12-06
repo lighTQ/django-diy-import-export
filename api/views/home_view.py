@@ -16,3 +16,6 @@ from rest_framework.views import APIView
 class HomePageView(APIView):
     def get(self, request,*args,**kwargs):
         return render(request, 'home_page.html')
+
+    def index(self,request,*args,**kwargs):
+        return render(request, 'index.html')

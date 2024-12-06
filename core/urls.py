@@ -19,7 +19,7 @@ from django.urls import path, include
 # from rest_framework.documentation import include_docs_urls
 
 from core import settings
-from api.views.homeView import HomePageView
+from api.views.home_view import HomePageView
 
 # router = SimpleRouter()
 # router.register('book', views.BookView)

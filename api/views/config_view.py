@@ -78,41 +78,6 @@ class ConfigModelView(BasicView):
 
 
 
-    """
-    use postmethod upload mulltifiles with other params
-    """
-    @action(detail=False, methods=['post'])
-    def upload(self, request, *args, **kwargs):
-        try:
-            transport_no =request.data['transportNo']
-            print(f"transportNo: {transport_no}")
-            for file in request.FILES.getlist('file'):
-                file_name = file.name
-                print(f'upload {file_name}')
-                file_obj = file.read()
-                df = pd.read_excel(file_obj)
-                print(df)
-                errors=[]
-                for index, row in df.iterrows():
-                    row_dict= row.to_dict()
-                    if 'id' not in row_dict or pd.isnull(row_dict['id']):
-                        max_id=CONFIG_INFO.objects.aggregate(Max('id'))['id__max']
-                        if max_id is None:
-                            max_id=0
-                        row_dict['id'] = max_id + 1
-                    ser = ConfigModelSerializer(data=row.to_dict())
-                    if ser.is_valid():
-                        instance, created = CONFIG_INFO.objects.update_or_create(
-                            id=row.get('id'),
-                            defaults=row_dict,
-                        )
-                    else:
-                        errors.append(ser.errors)
-            if errors:
-                return Response(errors, status=status.HTTP_400_BAD_REQUEST)
-            return Response(df.to_dict(orient='records'), status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
     """ 
     根据前台的boby参数更新数据库，并且生成excel文件流上传到sftp
