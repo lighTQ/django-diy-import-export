@@ -110,3 +110,7 @@ ppyinstaller --noconfirm --clean echoApp.spec
 step6:run
 
 ./App runserver localhost:8000 --noreload
+
+
+pip install tk shutilwhich pathlib
+

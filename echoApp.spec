@@ -16,13 +16,17 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 
+# 打印 a.pure，显示哪些 py 文件被打包
+from pprint import pprint
+pprint(a.pure)
+
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
     a.datas,
     [],
-    name='logoApp',
+    name='logoAppV2',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
