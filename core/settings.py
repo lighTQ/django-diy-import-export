@@ -84,7 +84,7 @@ DATABASES = {
         }
                          }
 }
-print(f" >>>>> env config db_name >>>> :'{os.environ.get('DJANGO_DB_PATH')}'")
+print(f" >>>>> env config db_name >>>> :'{DATABASES['default']['NAME']}'")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -34,11 +34,13 @@ class CONFIG_INFO(models.Model):
     config_name = models.CharField(max_length=100)
     config_value = models.CharField(max_length=100)
     config_remark = models.CharField(max_length=100)
-    create_date = models.DateTimeField(auto_created=True)
-    last_update = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True,blank=True)
+    last_update = models.DateTimeField(auto_now=True,blank=True)
 
 class ConfigModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = CONFIG_INFO
         fields ='__all__'
-        extra_kwargs = {'create_date': {'required': False}}
+        # fields =['config_category','config_category','config_value','config_remark']
+        # extra_kwargs = {'create_date': {'required': False}}
+        # read_only_fields = ['create_date']

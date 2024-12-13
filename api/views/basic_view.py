@@ -60,3 +60,26 @@ class BasicView(ModelViewSet):
                     else:
                         qs = qs.filter(**{key:value})
         return qs
+
+    def create(self, request, *args, **kwargs):
+        if isinstance(request.data, list):
+            serializer = self.get_serializer(data=request.data,many=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response({'msg':'success','count':len(serializer.data)}, status=status.HTTP_201_CREATED, headers=headers)
+        else:
+
+            return super().create(request, *args, **kwargs)
+
+
+    def perform_create(self,serializer):
+        serializer.save()
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(data={'msg':'success'},status=status.HTTP_200_OK)
+
+    def perform_destroy(self, instance):
+        instance.delete()
