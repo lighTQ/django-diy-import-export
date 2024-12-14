@@ -33,6 +33,7 @@ class BasicView(ModelViewSet):
             parmas = json.loads(request.body)
             # queryset= self.get_queryset().filter(**parmas)
             queryset = self.filter_queryset_with_params(self.get_queryset(), parmas)
+            queryset = queryset.order_by('-create_date')
             paginator = Paginator(queryset,page_size)
             page = paginator.page(page_index)
             ser = self.get_serializer(page,many=True)
