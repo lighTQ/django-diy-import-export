@@ -44,3 +44,15 @@ class ConfigModelSerializer(serializers.ModelSerializer):
         # fields =['config_category','config_category','config_value','config_remark']
         # extra_kwargs = {'create_date': {'required': False}}
         # read_only_fields = ['create_date']
+
+
+class ExampleModel(models.Model):
+    transport_no = models.CharField(max_length=100)
+    doc_no = models.CharField(max_length=100,null=True)
+    some_field = models.CharField(max_length=100,null=True)
+
+
+class ExampleModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExampleModel
+        fields = '__all__'

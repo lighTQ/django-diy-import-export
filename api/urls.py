@@ -12,11 +12,12 @@
 
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-from api.views import config_view,general_util_view ,file_upload_view
+from api.views import config_view, general_util_view, file_upload_view, example_view
 from core.settings import HOSTNAME,PORT
 # 自动生成的路由必须继承ViewSetMixin，才能自动生成
 router = SimpleRouter()
 router.register('configInfo', config_view.ConfigModelView)
+router.register('exampleInfo',example_view.BatchUpdateView)
 
 
 urlpatterns = [
@@ -30,5 +31,5 @@ print(router.urls)
 from api.task.runapscheduler import start_scheduler
 # start_scheduler()
 
-import webbrowser
-webbrowser.open(f'http://{HOSTNAME}:{PORT}')
+# import webbrowser
+# webbrowser.open(f'http://{HOSTNAME}:{PORT}')

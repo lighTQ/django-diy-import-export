@@ -98,6 +98,6 @@ def exe_main():
 
 if __name__ == '__main__':
     # 1. local run
-    # main()
+    main()
     # 2.package exe run
-    exe_main()
+    # exe_main()

@@ -12,7 +12,6 @@
 import json
 
 import pandas as pd
-from django.db.models import Max
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status

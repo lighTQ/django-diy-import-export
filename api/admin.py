@@ -13,3 +13,4 @@ from django.contrib import admin
 from api.models.models import *
 admin.site.register(Person)
 admin.site.register(CONFIG_INFO)
+admin.site.register(ExampleModel)
