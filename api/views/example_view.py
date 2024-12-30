@@ -48,7 +48,13 @@ class BatchUpdateView(BasicView):
         for item in lines:
             ExampleModel.objects.filter(id=item['id']).update(**item)
         # 根据 transport_no 查询数据库
-        queryset = ExampleModel.objects.filter(transport_no=transport_no)
+
+        # 将列名转换为列表
+        columns=['doc_no',]
+        column_list = columns.split(',')
+        # 查询数据库并只选择指定列
+        queryset = ExampleModel.objects.filter(transport_no=transport_no).only(*column_list)
+        # queryset = ExampleModel.objects.filter(transport_no=transport_no)
         if not queryset.exists():
             return Response({"msg": "没有找到对应的记录"}, status=status.HTTP_404_NOT_FOUND)
 
